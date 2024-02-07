@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Buscador Cliente rest</title>
+
+
+<!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jQuery AJAX -->
+<script src="
+https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js
+"></script> 
+
+</head>
+<body class="bg-light">
+
+<br><br>
+	
+	<div class="row">
+        <div class="col-md-4 order-md-2 mb-4"> </div>
+	
+	<div class="col-md-4 order-md-2 mb-4">
+	
+	<!-- Le ponemos buscar por que lo hemos definido en el controller @GetMapping(value="buscar") -->
+	
+	INTRODUCE TEMÁTICA: 
+	<input type="text" id="tematica" name="categoria" class="form-control">
+	
+	<br>
+	<br>
+	<input type="button" class="btn btn-primary btn-lg btn-block" id="enviar" value="BUSCAR">
+	
+	
+</div>
+
+<div class="col-md-4 order-md-2 mb-4"></div>
+
+</div>
+
+
+
+
+
+
+<br>
+<br>
+	
+	<div class="row">
+        <div class="col-md-2 order-md-2 mb-2" > </div>
+	
+		<div class="col-md-8 order-md-2 mb-8" align="center">
+
+
+<div id="tbResultados"></div>
+
+
+<div class="col-md-8 order-md-2 mb-8"></div>
+	
+	</div>
+	
+	</div>
+	
+<br>
+
+
+
+
+
+<script type="text/javascript">
+
+ //asociamos al botón una función en el click
+  $("#enviar").click(buscarResultados);
+ 
+ //función para declarar una llamada ajax json 
+ function buscarResultados(){
+	 let url="http://localhost:8080/01_servicio_buscador/buscar"
+	 let params={"tematica":$("#tematica").val()};
+	 $.get(url,params,procesarResultados);
+ }
+ 
+ function procesarResultados(data){
+	 let result="<h4>Resultados</h4>";
+	 //para cada elemento de data --> posición del elemento en la colección i, funcion con el elemento e (objeto json)
+	 $.each(data,function(i,e){
+		 result+="<a href='"+e.url+"'>"+e.url+"</a><br>";
+		 result+="<b>"+e.descripcion+"</b><br><br><hr>";	
+	 });
+	 //volcamos el html generado en el div #tbResultados
+	 $("#tbResultados").html(result);
+ }
+ 
+
+</script>
+
+</body>
+</html>
