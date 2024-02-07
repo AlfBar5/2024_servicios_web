@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +20,9 @@ import service.interfaces.BuscadorService;
 
 
 //Anotación RestController
+//hay que ir al controller del servicio rest y decirle que permita todo y no bloquee las peticiones get post. 
+//Esto permite llamadas desde cualquier origen
+@CrossOrigin("*") 
 @RestController
 public class BuscadorController {
 	//como spring es responsable de inyectar los objetos de la lógica de negocio
@@ -46,16 +52,29 @@ public class BuscadorController {
 		buscadorService.agregarResultado(resultado);
 		
 		
-				
+	}
+	
+	//Recibimos el parámetro url, elimina un resultado, y devuelve un json con los resultados restantes
+	@DeleteMapping(value="eliminar", produces="application/json")
+	public List<Resultado> eliminar(@RequestParam("url") String url){
+		
+		return buscadorService.eliminarResultado(url);
+		
 		
 	}
 	
 	
-	
-	
-	
-	
-	
+	//PUT Actualiza un Resultado y Devuelve un Resultado
+	//Decidimos que nos envien un objeto encapculado en json y devolvemos también un json con el resultado
+	//tanto en la llamada (consumes) como en la respuesta (produces) son un json
+	@PutMapping(value="actualizar", produces="application/json", consumes="application/json")
+	public Resultado actualizar(@RequestBody Resultado resultado) {
+		
+		//Recibimos un json con el objeto Resultado
+		//al service le mandamos dos parámetros (del objeto resultado): url y nueva descripción
+		return buscadorService.actualizarDescripcion(resultado.getUrl(), resultado.getDescripcion());
+		
+	}
 	
 	
 	
