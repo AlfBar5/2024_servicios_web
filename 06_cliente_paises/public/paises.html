@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Buscador paises</title>
+
+
+<!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jQuery AJAX -->
+<script src="
+https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js
+"></script> 
+
+
+
+
+
+
+<script type="text/javascript">
+
+//al cargar la página se llama a la función cargarContinentes() que rellena el select
+$(document).ready(function () {
+	
+	cargarContinentes();
+	
+});
+
+//llamada al servicio rest de 05_servicio_paises
+//http://localhost:8080/05_servicio_paises/continentes
+var url="http://localhost:8080/05_servicio_paises/"	
+
+function cargarContinentes() {	
+	$.get(url+"continentes",function(data,status){	
+		var res="<select class='custom-select d-block w-100' id='lista' onchange='cargarPaises()'>";		
+		for(var i=0;i<data.length;i++ ){
+ 				res+="<option value='"+data[i]+"'>"+data[i]+"</option>";
+		}		
+		res+="</select><br>";
+		$("#continentes").html(res);
+	});
+	
+
+}
+
+function cargarPaises() {	
+	var res = "<br><h4>PAÍSES</h4>";
+	res+="<br><table class='table table-light'>";		
+	res+="<tr><th>Nombre</th><th>Capital</th><th>Población</th><th>Bandera</th></tr>";
+		//recogemos el continente seleccionado en el select id="lista"
+		//y le pasamos la url del servicio rest con el parámetro del continente: http://localhost:8080/05_servicio_paises/paises/Europe
+		$.get(url+"paises/"+$("#lista").val(),function(data){	
+			//foreach para cargar los datos de la tabla
+			$.each(data,function(i,p){
+				res+="<tr><td>"+p.nombre+"</td><td>"+p.capital+"</td><td>"+p.poblacion+"</td><td align='center'><img src='"+p.bandera+"' alt='Bandera' width='32' height='16'></td></tr>";
+			});		
+			
+			res+="</table>";
+			$("#paises").html(res);
+		});
+	
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+</head>
+<body class="bg-light">
+
+<br><br>
+	
+<div class="row">
+        <div class="col-md-4 order-md-2 mb-4"> </div>
+	
+	<div class="col-md-4 order-md-2 mb-4" aling="center" style="text-align:center;">
+	
+	<!--  -->
+	
+	<h3>PAÍSES POR CONTINENTE: </h3>
+	
+	<br><br>
+	
+
+ 
+	
+	
+	
+	
+	</div>
+
+<div class="col-md-4 order-md-2 mb-4"></div>
+
+</div>
+
+
+
+
+
+
+<div id="contenedor" class="container">
+
+<div class="row">
+ <div class="col-md-4 order-md-2 mb-4" > </div>
+	
+		<div class="col-md-4 order-md-2 mb-4" align="center">
+
+		<h6>Elegir un continente:</h6>
+		
+			<div id="continentes">
+			
+			</div>
+
+	</div>
+
+
+<div class="col-md-4 order-md-2 mb-4"></div>
+</div>
+
+
+
+
+
+<div class="row">
+ <div class="col-md-2 order-md-2 mb-2" > </div>
+	
+		<div class="col-md-8 order-md-2 mb-8" align="center">
+
+		
+		<div id="paises">	</div>
+
+	</div>
+
+
+<div class="col-md-2 order-md-2 mb-2"></div>
+</div>
+
+
+
+</div>
+
+
+
+<br>
+
+
+
+
+
+
+
+
+</body>
+</html>
