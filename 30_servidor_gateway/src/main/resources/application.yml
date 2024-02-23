@@ -24,6 +24,18 @@ spring:
           - Path=/spedidos/**
         filters:
           - RewritePath=/spedidos/*, /
+      - id: servLibreria
+        uri: lb://servicio-libreria
+        predicates:
+          - Path=/slibreria/**
+        filters:
+          - RewritePath=/slibreria/*, /
+      - id: servTienda
+        uri: lb://servicio-tienda
+        predicates:
+          - Path=/stienda/**
+        filters:
+          - RewritePath=/stienda/*, /         
 server:
   port: 9000
 eureka:
