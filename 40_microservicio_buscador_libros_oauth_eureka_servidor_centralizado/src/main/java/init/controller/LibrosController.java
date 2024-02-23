@@ -41,3 +41,32 @@ public class LibrosController {
 	}
 	
 }
+
+
+
+
+/*
+ * @RestController
+	public class BookController {
+		@Autowired
+		BookService service;
+		
+		@GetMapping(value="tematicas",produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<String>> tematicas(){
+			return new ResponseEntity<>(service.tematicas(),HttpStatus.OK);
+		}
+		
+		@GetMapping(value="libros/{tematica}",produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<Book>> librosTematica(@PathVariable("tematica") String tema){
+			return new ResponseEntity<>(service.librosTematica(tema),HttpStatus.OK);
+		}
+}
+ */
+
+
+
+
+
+
+
+
