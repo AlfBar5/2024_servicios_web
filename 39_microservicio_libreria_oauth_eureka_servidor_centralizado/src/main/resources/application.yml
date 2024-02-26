@@ -3,5 +3,5 @@ spring:
     name: servicio-libreria
   config:
     import:
-    - optional:configserver:http://localhost:8888
+    - optional:configserver:http://${HOST_CONFIG}:8888
 

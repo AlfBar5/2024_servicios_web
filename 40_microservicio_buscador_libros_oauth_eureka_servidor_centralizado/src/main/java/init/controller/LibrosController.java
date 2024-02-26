@@ -3,7 +3,9 @@ package init.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +25,9 @@ public class LibrosController {
 	//url de prueba en el postman: http://localhost:7000/catalogo/web
 	//url de prueba Gateway: http://localhost:9000/stienda/catalogo/web
 	@GetMapping(value="catalogo/{tematica}",produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<Libro> catalogotematica(@PathVariable("tematica") String tematica){
+	public ResponseEntity<List<Libro>> catalogotematica(@PathVariable("tematica") String tematica){
 			
-		return service.catalogo(tematica);
+		return new ResponseEntity<>(service.catalogo(tematica),HttpStatus.OK);
 			
 	}
 	
@@ -35,9 +37,9 @@ public class LibrosController {
 	//URL: http://localhost:7000/listatematicas
 	//url de prueba Gateway: http://localhost:9000/stienda/listatematicas
 	@GetMapping(value="listatematicas",produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<String> listatematicas(){
+	public ResponseEntity<List<String>> listatematicas(){
 		
-		return service.listaTematicas();
+		return new ResponseEntity<>(service.listaTematicas(),HttpStatus.OK);
 	}
 	
 }
