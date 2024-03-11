@@ -66,14 +66,28 @@ public class BuscadorServiceImpl implements BuscadorService {
 	@Override
 	public Mono<Void> agregarResultado(Resultado resultado) {
 		
-		return null;
+		/*
+		return Mono.empty()
+				.map(r->{
+					resultados.add(resultado);
+					
+				})
+		*/		
+		/*		
+		return Mono.just(resultados.add(resultado))
+				.map(r->Mono.empty())
+				.when(null);
 		
+		return null;
+		*/
 		/*
 		return Mono.
 				resultados.add(resultado);
 		
 		*/
 			//	resultados.add(resultado);
+		return null;
+		
 	}
 
 	
