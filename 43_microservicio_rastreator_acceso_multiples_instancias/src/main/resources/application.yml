@@ -1,0 +1,10 @@
+server:
+  port: 7002
+spring:
+  application:
+    name: servicio-rastreator
+eureka:
+  client:
+    registerWithEureka: false
+    serviceUrl:
+      defaultZone: http://10.1.3.100:8761/eureka

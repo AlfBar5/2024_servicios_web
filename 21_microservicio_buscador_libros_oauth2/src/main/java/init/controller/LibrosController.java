@@ -20,7 +20,7 @@ public class LibrosController {
 	
 	//segurizado, usuario autentificado
 	//Devuelve lista de todos los cursos
-	//url de prueba en el postman: http://localhost:9000/catalogo/1111
+	//url de prueba en el postman: http://localhost:9000/catalogo/web
 	@GetMapping(value="catalogo/{tematica}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Libro> catalogotematica(@PathVariable("tematica") String tematica){
 			

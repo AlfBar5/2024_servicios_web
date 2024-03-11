@@ -43,6 +43,14 @@ public class SecurityConfig {
 				//.requestMatchers(HttpMethod.PUT, "/actualizar").hasAnyRole("OPERATORS")
 				.anyRequest().permitAll()
 				)
+		
+		/*
+				aut->aut.requestMatchers(HttpMethod.GET, "/buscarlibro/*").authenticated()
+				.requestMatchers(HttpMethod.POST, "/alta").hasRole("ADMINS")
+				.anyRequest().permitAll()
+				)
+		*/		
+		
 		.httpBasic(Customizer.withDefaults());
 		return http.build();
 		
